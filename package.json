@@ -1,0 +1,31 @@
+{
+  "name": "electron-serial-solution",
+  "version": "0.0.1",
+  "description": "Electron app for testing web serial",
+  "main": "main.cjs",
+  "scripts": {
+    "live": "parcel index.html",
+    "start": "electron . --trace-warnings",
+    "make": "electron-packager . --overwrite --out=release",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release",
+    "package-win": "electron-packager . web-serial-solution --overwrite --platform=win32 --arch=ia32 --prune=true --out=release --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Web Serial Solution\"",
+    "package-linux": "electron-packager . web-serial-solution --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png --prune=true --out=release"
+  },
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "GitHub",
+  "license": "Private",
+  "devDependencies": {
+    "@parcel/packager-raw-url": "^2.7.0",
+    "electron": "^21.0.1",
+    "electron-packager": "^16.0.0",
+    "parcel": "^2.7.0"
+  },
+  "dependencies": {}
+}
