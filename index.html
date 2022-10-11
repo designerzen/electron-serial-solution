@@ -1,36 +1,167 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Web Serial Connection Test</title>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+	<head>
+		<title>Web Serial Connection Test</title>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
 
-<body>
-	<header>
-		<h1>Web Serial Connection Test</h1>
-		<h2 id="status"></h2>
-	</header>
+	<body>
+		<header>
+			<h1>Web Serial Connection Test</h1>
+			<h2 id="status">Initialising</h2>
+		</header>
 
-	<main class="webserial">
-	
-		<p id="device">Looking for an Arduino</p>
-
-		<output>
-
-		</output>
-	</main>
+		<main class="webserial">
 		
-	<script type="module" src="./js/main.js"></script>
-</body>
+			<p id="device">Waiting for user to click connect to Arduino</p>
 
-<style>
-	html{
-		font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-	}
-	output{
-		font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-	}
-</style>
+			<!-- These are all the methods from SerialController -->
+			<form>
+				<p id="connection-status">Arduino Connection</p>
+
+				<fieldset id="connect-to-arduino-controls">
+					<fieldset id="connect-to-arduino-options">
+						<!-- <label for="data-connection-options">Options for arduino</label>
+						<input id="data-connection-options" type="text" value="\n\r"> -->
+						
+						<label for="data-connection-delimiter">Data Delimiter</label>
+						<select id="data-connection-delimiter"></select>
+						
+						<label for="data-connection-baudrate">Baud Rate</label>
+						<select id="data-connection-baudrate"></select>
+						
+						<label for="data-connection-databits">Date Bits per frame</label>
+						<select id="data-connection-databits"></select>
+						
+						<label for="data-connection-stopbits">Stop Bits per frame</label>
+						<select id="data-connection-stopbits"></select>
+						
+						<label for="data-connection-parity">Parity</label>
+						<select id="data-connection-parity"></select>
+
+						<label for="data-connection-flowcontrol">Flow Control</label>
+						<select id="data-connection-flowcontrol"></select>
+
+						<label for="data-connection-use-decoder">Use Text Decoding (recommended)</label>
+						<input id="data-connection-use-decoder" type="checkbox">
+						
+						<input id="data-connection-options" type="text" value="\n\r" hidden>
+					</fieldset>
+					<fieldset>
+						<label for="button-connect-to-arduino">Connect / Disconnect from Arduino</label>
+					
+						<button id="button-connect-to-arduino" type="button">Connect to Arduino</button>
+						<button id="button-disconnect-from-arduino" class="cancel" type="button" hidden>Disconnect from Arduino</button>
+					</fieldset>
+				</fieldset>
+
+				<fieldset id="connected-arduino-controls" hidden>
+
+					<fieldset>
+						<label for="data-to-send-to-arduino">Text for arduino</label>
+						<input id="data-to-send-to-arduino" type="text">
+						
+						<label for="data-connection-release-lock">Release Lock (recommended)</label>
+						<input id="data-connection-release-lock" type="checkbox">
+						<button id="button-send-to-arduino" type="button">Send Text to Arduino</button>
+					</fieldset>
+
+					<fieldset>
+						<button id="button-read-arduino-commands" type="button">Read RAW Arduino Commands</button>
+						<button id="button-read-arduino-until-closed" type="button">Read Arduino Until Closed</button>
+
+						<fieldset>
+							<button id="button-read-arduino-continuosly" type="button">Read from Arduino Continously</button>
+							<button id="button-read-arduino-cancel-continuose" type="button">Cancel Continous Arduino</button>
+						</fieldset>
+
+						<button id="button-unlock-arduino" type="button">Unlock Arduino</button>
+					</fieldset>
+
+				</fieldset>
+			</form>
+				
+			<!-- Serial data -->
+			<output>
+				<ul id="data-output-list">
+
+				</ul>
+			</output>
+				
+
+
+
+		</main>
+
+		<script type="module" src="./js/main.js"></script>
+	</body>
+
+	<style>
+		html{
+			font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+		}
+		output{
+			font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+		}
+		strong{
+			color:rebeccapurple;
+		}
+		select, button, input, fieldset{
+			appearance: none;
+			border:2px rebeccapurple solid;
+			border-radius:2px;
+			padding:12px 20px;
+			margin:2px;
+		}
+		button{
+			border-radius:4px;
+			border-color: transparent;
+			background-color: blue;
+			color:white;
+		}
+		button.cancel{
+			background-color: red;
+		}
+		label{
+			text-transform: uppercase;
+			display: block;
+			padding:12px 0;
+		}
+		input[type=checkbox]{
+			background-color: transparent;
+		}
+		input[type=checkbox]:checked{
+			background-color: rebeccapurple;
+		}
+		#connect-to-arduino-controls{
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
+		#connect-to-arduino-controls fieldset{
+			flex-basis:100%;
+			display: flex;
+			flex-wrap: nowrap;
+			justify-content: space-between;
+		}	
+		#connect-to-arduino-controls button{
+			order:-1;
+		}	
+		#connected-arduino-controls fieldset{
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
+		#data-output-list{
+			margin: 0;
+			list-style: none;
+			padding: 0;
+		}
+		ul li{
+			border-bottom: 1px dotted rebeccapurple;
+			padding:20px 0;
+		}
+	</style>
 </html>

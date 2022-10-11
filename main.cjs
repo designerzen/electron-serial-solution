@@ -1,23 +1,33 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, ipcMain, dialog } = require('electron')
+const { app, BrowserWindow } = require('electron')
 const path = require('path')
 const menu = require("./menu.cjs")
 
-// Add your ARDUINO Ids here
+
+// Add your ARDUINO NAMES here
 const ARDUINO_NAME_WHITELIST = [
 	'Arduino Mega 2560',
 	'Arduino Uno',
 	'Arduino Duo'
 ]
+
+// Add your specific ARDUINO IDS here
 const ARDUINO_DEVICE_WHITELIST = [
+	// Zen's test arduino devices
 	'USB\\VID_2341&PID_0042\\851393033313514121E1',
 	'USB\\VID_2341&PID_0001\\64936333137351201191',
-	// FIXME:
+	// Bolt Tension
+	'FTDIBUS\\VID_0403+PID_6001+AB0LR027A\\0000',
+	// Energy:
 	'USB\\VID_2341&PID_0001\\64936333137351201191',
+	// Moving Parts
+	'USB\\VID_2341&PID_0042\\85036313430351803230',
+	// Bike AV
+	'FTDIBUS\\VID_0403+PID_6001+AB0L9UPBA\\0000'
 ]
 
 const isProduction = process.env.NODE_ENV === "production" || !process || !process.env || !process.env.NODE_ENV
-const isDevelopment = !isProduction
+const isDevelopment = true || !isProduction
 
 let mainWindow 
 
@@ -32,8 +42,8 @@ async function createWindow() {
 	// be closed automatically when the JavaScript object is garbage collected.
 	// Create the browser window.
 	mainWindow = new BrowserWindow({
-		width: 800,
-		height: 600,
+		width: 1560,
+		height: 900,
 		minWidth: 360,
 		minHeight: 450,
 		icon: path.join(__dirname, "icons/win/icon.ico"),
@@ -127,12 +137,10 @@ async function createWindow() {
 
 		}else{
 
-			console.warn('Could not find any ARDUINOS', port)
+			console.warn('Could not find any ARDUINOS')
 			callback('') //Could not find any matching devices
 		}
 	})
-
-	
 
 	// This grants permission to the USB devices connected
 	session.setPermissionCheckHandler((webContents, permission, requestingOrigin, details) => {

@@ -1,11 +1,11 @@
 # electron-serial-solution
 
-A barebones repo to test whether Electron requires a click to access WebSerial
+A barebones repo to test whether Electron requires a click to access WebSerial.
 
+Add your IDs and Device names to the main.cjs ARDUINO_NAME_WHITELIST and ARDUINO_DEVICE_WHITELIST
 
-Web test
-
-```yarn live```
+Install dependencies 
+```yarn install```
 
 
 Electron Local
@@ -16,3 +16,8 @@ Electron Local
 Electron Packaged
 
 ```yarn make```
+
+
+Web test - no Electron
+
+```yarn live```
